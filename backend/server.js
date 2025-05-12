@@ -7,6 +7,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+require("./src/models/user");
+
+app.use("/api/users", require("./src/routes/user"));
+
 async function startServer() {
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
