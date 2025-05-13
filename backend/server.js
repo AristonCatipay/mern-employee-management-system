@@ -11,6 +11,11 @@ require("./src/models/user");
 
 app.use("/api/users", require("./src/routes/user"));
 
+app.use((req, res) => {
+  console.log(`Incoming request: ${req.method} ${req.originalUrl}`);
+  res.status(404).json({ error: "Route not found" });
+});
+
 async function startServer() {
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
