@@ -70,15 +70,13 @@ const loginUser = async (req, res) => {
     }
 
     // Make sure the payload uses "userId" consistently
-    const token = jwt.sign(
-      { userId: user._id },
-      process.env.JWT_SECRET,
-      { expiresIn: "1m" } // Add expiration for security
-    );
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
 
     res.status(200).json({
       username: user.username,
-      userId: user._id, // Send back user ID for frontend use
+      userId: user._id,
       token,
     });
   } catch (error) {
@@ -88,7 +86,7 @@ const loginUser = async (req, res) => {
 
 const getUserMe = async (req, res) => {
   try {
-    const user = await User.findById(req.user.userId).select("-password"); // Exclude password from response
+    const user = await User.findById(req.user.userId).select("-password");
     if (!user) {
       return res.status(404).json({ error: "User not found." });
     }
