@@ -4,8 +4,16 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 
 const app = express();
-app.use(cors());
 app.use(express.json());
+
+const corsOptions = {
+  origin: ["http://localhost:5173"],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  exposedHeaders: ["Content-Type"],
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 require("./src/models/user");
 
