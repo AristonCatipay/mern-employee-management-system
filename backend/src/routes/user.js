@@ -5,6 +5,7 @@ const { authMiddleware } = require("../middleware/authMiddleware");
 
 // POST: http://localhost:3000/api/users/register
 router.post("/register", registerUser);
+
 // POST: http://localhost:3000/api/users/login
 router.post("/login", loginUser);
 
