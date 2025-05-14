@@ -6,6 +6,8 @@ import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 
 function Register() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showAlert, setShowAlert] = useState(null);
@@ -22,7 +24,7 @@ function Register() {
     event.preventDefault();
     setShowAlert(null);
 
-    if (!username || !password) {
+    if (!username || !password || !name || !email) {
       handleShowAlert("Please fill in all fields", "warning");
       return;
     }
@@ -33,7 +35,7 @@ function Register() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username, password }),
+          body: JSON.stringify({ name, email, username, password }),
         }
       );
 
@@ -60,6 +62,26 @@ function Register() {
       )}
       <h1>Register Page</h1>
       <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="formBasicName">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter name"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+        </Form.Group>
+
         <Form.Group className="mb-3" controlId="formBasicUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control
